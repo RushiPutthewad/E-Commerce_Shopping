@@ -65,5 +65,5 @@ This project is a comprehensive **E-Commerce Website** and **Order Management Ap
 
 1. **Clone the Repository**:  
    ```bash
-   git clone https://github.com/yourusername/ecommerce-tshirt-management.git
-   cd ecommerce-tshirt-management
+   git clone https://github.com/RushiPutthewad/E-Commerce_Shopping
+   cd E-Commerce_T-Shirt_Management
