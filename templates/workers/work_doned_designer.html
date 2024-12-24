@@ -1,0 +1,89 @@
+{% extends 'admin/admin_base.html' %}
+{% block main %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Approved list all Workers</h5>
+        <div class="container-fluid">
+            <table class="table table-striped table-bordered table-sm" id="example">
+                <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Order ID</th>
+                    <th>Front Image</th>
+                    <th>Designer Name</th>
+                    <th>Worker</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in designs %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.design_name }}</td>
+                    <td><img src="{{ i.front_image.url }}" style="width:100px"/></td>
+                    <td>{{ i.designer.designer_name }}</td>
+                    <td>{{ i.role }}</td>
+                    <td>
+                        <!-- Modal Trigger -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#designModal-{{ forloop.counter }}">
+                            <i class="fas fa-info"></i> Details
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="designModal-{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="designModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="designModalLabel">Design Details</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="table-primary">
+                                                    <th>S.No.</th>
+                                                    <th>Design Name</th>
+                                                    <th>Category</th>
+                                                    <th>Description</th>
+                                                    <th>Images</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>{{ i.design_name }}</td>
+                                                    <td>{{ i.category }}</td>
+                                                    <td>{{ i.desc }}</td>
+                                                    <td>
+                                                        <img src="{{ i.front_image.url }}" style="width:100px"/>
+                                                        {% if i.back_image %}
+                                                        <img src="{{ i.back_image.url }}" style="width:100px"/>
+                                                        {% endif %}
+                                                        {% if i.sleeve_image %}
+                                                        <img src="{{ i.sleeve_image.url }}" style="width:100px"/>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

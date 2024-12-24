@@ -1,0 +1,90 @@
+{% extends 'admin/admin_base.html' %}
+{% block main %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">{{order_status}} Order</h5>
+        <div class="container-fluid">
+            <table class="table table-striped table-bordered table-sm" id="example">
+                <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>OrderId</th>
+                    <th>Customer Name</th>
+                    <th>Mobile no.</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in order %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.order_id}}</td>
+                    <td>{{i.user_p.name}} {{i.user_p.last}}</td>
+                    <td>{{i.user_p.mobile}}</td>
+                    <td><a href="/admin-order-track/{{i.id}}/" class="btn btn-primary" title="Track Status">{{i.get_status_display}}</a></td>
+                    <td>
+                        {% comment %} <a href="#" class="btn btn-info">
+                            <i class="fas fa-info"></i>
+                        </a> {% endcomment %}
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">
+                            <i class="fas fa-info"></i>
+                          </button>
+  
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModal-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Order Detail</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table width="100%">
+                                        <thead>
+                                            <tr class="table-primary">
+                                            <th scope="col">S.No.</th>
+                                            <th scope="col">Order Id</th>
+                                            <th scope="col">Order Image</th>
+                                            <th scope="col">Order Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            <th scope="row">1</th>
+                                            <td>{{i.order_id}}</td>
+                                            <td><img src="{{i.image.url}}" style="width:100px"/></td>
+                                            <td>{{i.created}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+
+
+                        <a href="/delete-order/{{i.id}}/?action={{request.GET.action}}" class="btn btn-danger"
+                           onclick="return confirm('Are You Sure?')">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

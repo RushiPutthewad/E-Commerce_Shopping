@@ -1,0 +1,135 @@
+{% extends 'admin/admin_base.html' %}
+{% block main %}
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Add T-shirt Design - Making Stage</h5>
+        <div class="container-fluid">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <!-- Designer Name -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Designer Name</label>
+                            <input type="text" name="designer_name" class="form-control" placeholder="Enter designer's name" required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Worker Role</label>
+                            <input type="text" name="role" readonly required class="form-control" value="Making">
+                        </div>
+                    </div>
+
+                    <!-- T-shirt Category -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>T-shirt Category</label>
+                            <select name="category" class="form-control" required>
+                                <option value="">Choose Category</option>
+                                {% for i in cate %}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Order ID -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Order ID</label>
+                            <input type="text" name="design_name" class="form-control" placeholder="Enter design name" required>
+                        </div>
+                    </div>
+
+                    <!-- Design Description -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Design Description</label>
+                            <textarea name="desc" class="form-control" placeholder="Describe the design" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Upload Front Image -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Upload Front Image</label>
+                            <input type="file" name="front_image" class="form-control-file" required>
+                        </div>
+                    </div>
+
+                    <!-- Upload Back Image -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Upload Back Image</label>
+                            <input type="file" name="back_image" class="form-control-file">
+                        </div>
+                    </div>
+
+                    <!-- Upload Sleeve Image -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Upload Sleeve Image</label>
+                            <input type="file" name="sleeve_image" class="form-control-file">
+                        </div>
+                    </div>
+
+                    <!-- Upload Sample Images -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Upload Sample Images</label>
+                            <input type="file" name="sample_images" multiple class="form-control-file">
+                        </div>
+                    </div>
+
+                    <!-- Making Stage Specific Fields -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Making Date</label>
+                            <input type="date" name="making_date" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Making Status</label>
+                            <select name="making_status" class="form-control" required>
+                                <option value="">Choose Making Status</option>
+                                <option value="completed">Completed</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Assigned Worker</label>
+                            <input type="text" name="assigned_worker" class="form-control" placeholder="Enter worker's name" required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Production Notes</label>
+                            <textarea name="production_notes" class="form-control" placeholder="Enter any notes about the making process" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Optional: Production Machine -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Production Machine (Optional)</label>
+                            <input type="text" name="production_machine" class="form-control" placeholder="Enter machine details (if applicable)">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Submit Design and Making Details" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

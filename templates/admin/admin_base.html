@@ -1,0 +1,244 @@
+{% load static %}
+<html lang="en">
+<head>
+    <title>Business</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/admin_base_sideBar.css' %}">
+    <script src="{% static 'assets/js/admin/adminbase_sidebar.js' %}"></script>
+    <html>
+    
+    
+    {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="{% static 'css/progress-bar.css' %}" rel="stylesheet" type="text/css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> {% endcomment %}
+    
+    <style>
+        /* Enable hover effect for the submenu */
+        .dropdown-submenu {
+            position: relative;
+        }
+        
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -8.7px;
+            display: none;
+        }
+        
+        .dropdown-submenu:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+    
+</head>
+<body>
+<!--vertical navbar start-->
+<div class="vertical-nav bg-white" id="sidebar">
+    <div class="py-4 px-3 mb-1 bg-light">
+        <!--align media objects (like images or videos) together with content
+        To create a flexbox container and to transform direct children into flex items, use the d-flex class
+        -->
+        <p class="font-weight-bold text-uppercase px-3 small dashboard-text text-center">DTS</p>
+        <div class="media d-flex align-items-center">
+            <img src="{% static 'assets/images/team/adminpro.jpeg' %}" width="80" height="80"
+                 class="mr-3 rounded-circle img-thumbnail shadow-sm">
+            <div class="media-body">
+                <h4 class="mb-0">Admin</h4>
+                <p class="text-muted mb-0">{{request.user.email}}</p>
+            </div>
+        </div>
+    </div>
+
+ 
+    <!--.flex-column to display the flex items vertically (on top of each other)-->
+    <ul class="nav flex-column bg-white">
+        <li class="nav-item">
+            <a href="{% url 'a_dashboard' %}" class="nav-link text-dark bg-light">
+                <i class="fas fa-tachometer-alt fa-fw mr-3 text-primary"></i>
+                Dashboard
+            </a>
+        </li>
+        <!--fa-fw class is used to set icons at a fixed width. This class is useful when different icon widths throw off alignment-->
+
+ 
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark bg-light" href="#" id="navbardrop" data-toggle="dropdown">
+                <i class="fas fa-chart-bar mr-3 text-primary fa-fw"></i> T-Shirt Category
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'category' %}">Add Category</a>
+                <a class="dropdown-item" href="{% url 'view_category' %}">View Category</a>
+            </div>
+        </li>
+
+ 
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark bg-light" href="#" id="navbardrop" data-toggle="dropdown">
+                <i class="fas fa-chart-bar mr-3 text-primary fa-fw"></i> Manage Product
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'add_product' %}">Add Product</a>
+                <a class="dropdown-item" href="{% url 'view_product' %}">View Product</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark bg-light" href="#" id="navbardrop" data-toggle="dropdown">
+                <i class="fas fa-chart-bar mr-3 text-primary fa-fw"></i> Manage User
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="/manage-user/">View User</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark bg-light" href="#" id="navbardrop" data-toggle="dropdown">
+                <i class="fas fa-users mr-3 text-primary fa-fw"></i> Worker Profile
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'workers_pro' %}">Worker Add</a>
+                <a class="dropdown-item" href="{% url 'worker_view' %}">Worker View</a>
+            </div>
+        </li>
+        {% comment %} <li class="nav-item">
+            <a href="#profile" class="nav-link text-dark bg-light">
+                <i class="fas fa-users mr-3 text-primary fa-fw"></i>
+                User Profile
+            </a>
+        </li> {% endcomment %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark bg-light" href="#" id="navbardrop" data-toggle="dropdown">
+                <i class="fas fa-chart-bar mr-3 text-primary fa-fw"></i>Manage Order
+            </a>
+            <div class="dropdown-menu">
+                {% comment %} <a class="dropdown-item" href="/manage-order/?action=1">New Order (Pending)</a> {% endcomment %}
+                <a class="dropdown-item" href="/manage-order/?action=1">Design Order</a>
+                <a class="dropdown-item" href="/manage-order/?action=2">Fusing Order</a>
+                <a class="dropdown-item" href="/manage-order/?action=3">Making Order</a>
+                <a class="dropdown-item" href="/manage-order/?action=4">Printing Order</a>
+                <a class="dropdown-item" href="/manage-order/?action=5">Dispatch Order</a>
+                <a class="dropdown-item" href="/manage-order/?action=6">Delivery Order</a>
+                <a class="dropdown-item" href="/manage-order/?action=7">Cancel Order</a>
+                <a class="dropdown-item" href="/manage-order/?action=8">Return Order</a>
+                <a class="dropdown-item" href="/manage-order/?action=0">All Order</a>
+            </div>
+        </li>
+        {% comment %} <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark bg-light" href="#" id="navbardrop" data-toggle="dropdown">
+                <i class="fas fa-chart-bar mr-3 text-primary fa-fw"></i> Workers
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbardrop">
+                <div class="dropdown-submenu">
+                    <a class="dropdown-item" href="#">Designer</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'add_design' %}">Designer Add</a> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'view_design' design_id=1 %}">Designer View</a> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'view_designs' %}">Designer View</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a class="dropdown-item" href="#">Fusing</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'fusing' %}">Fusing Add</a> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'view_design' design_id=1 %}">Designer View</a> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'fusing_view' %}">Fusing View</a>
+                    </div>
+                </div><div class="dropdown-submenu">
+                    <a class="dropdown-item" href="#">Making</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'making' %}">Making Add</a> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'view_design' design_id=1 %}">Designer View</a> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'making_view' %}">Making View</a>
+                    </div>
+                </div><div class="dropdown-submenu">
+                    <a class="dropdown-item" href="#">Printing</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'printing' %}">Printing Add</a> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'view_design' design_id=1 %}">Designer View</a> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'printing_view' %}">Printing View</a>
+                    </div>
+                </div><div class="dropdown-submenu">
+                    <a class="dropdown-item" href="#">Dispatch</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'dispatch' %}">Dispatch Add</a> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'view_design' design_id=1 %}">Designer View</a> {% endcomment %}
+                        {% comment %} <a class="dropdown-item" href="{% url 'dispatch_view' %}">Dispatch View</a>
+                    </div>
+                </div>
+            </div>
+        </li> {% endcomment %}
+        
+        {% comment %} <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-dark bg-light" href="#" id="navbardrop" data-toggle="dropdown">
+                <i class="fas fa-chart-bar mr-3 text-primary fa-fw"></i>Workers Accepted
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Designer Done</a>
+                
+                <a class="dropdown-item" href="#">All Order</a>
+            </div>
+        </li> {% endcomment %}
+        
+
+        <li class="nav-item">
+            <a href="{% url 'approved_designs' %}" class="nav-link text-dark bg-light">
+                <i class="fas fa-chart-bar mr-3 text-primary fa-fw"></i>
+                Workers Accepted
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link text-dark bg-light">
+                <i class="fas fa-cog mr-3 text-primary fa-fw"></i>
+                Manage Feedback
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="" class="nav-link text-dark bg-light">
+                <i class="fas fa-cog mr-3 text-primary fa-fw"></i>
+                Change Password
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'b_login' %}" class="nav-link text-dark bg-light">
+                <i class="fas fa-sign-out-alt mr-3 text-primary fa-fw"></i>
+                Logout
+            </a>
+        </li>
+
+ 
+    </ul>
+</div>
+<!--vertical navbar end-->
+<!--page content holder-->
+<div class="page-content p-4" id="content">
+    <a href="{% url 'b_login' %}" title="logout" class="float-right text-white"><i class="fas fa-sign-out-alt fa-2x"></i></a>
+
+ 
+    <!--toggle btn-->
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4">
+        <i class="fas fa-bars mr-2"></i>
+        <small class="text-uppercase font-weight-bold">Toggle</small>
+    </button>
+    <!--end toggle btn-->
+
+
+    {% block main %}
+    {% endblock %}
+</div>
+<!--end page content holder-->
+
+{% for i in messages %}
+<script>
+    alert('{{i}}');
+</script>
+{% endfor %}
+</body>
+</html>

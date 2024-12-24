@@ -1,0 +1,45 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block main %}
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Worker Details</h5>
+        <div class="container-fluid">
+
+            <table class="table table-bordered table-sm" id="example">
+                <thead>
+                    <tr>
+                        <th>S. No.</th>
+                        <th>Worker Name</th>
+                        <th>Worker Role</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Profile Pic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for worker in yt %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ worker.designer_name }}</td>
+                        <td>{{ worker.get_role_p_display }}</td>
+                        <td>{{ worker.contact }}</td>
+                        <td>{{ worker.email }}</td>
+                        <td>
+                            {% if worker.profile_pic %}
+                                <img src="{{ worker.profile_pic.url }}" width="50px" height="50px">
+                            {% else %}
+                                No profile pic available
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

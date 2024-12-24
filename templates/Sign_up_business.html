@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/css/signup.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </head>
+  <body>
+    <div class="container" id="container">
+      <div class="form-container sign-up-container">
+        <form action="{% url 'b_Register' %}" method="post">
+          {% csrf_token %}
+          <h1>Create Account as Business</h1>
+          <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+          <span>or use your email for registration</span>
+          <input type="text" name="username" placeholder="Username" />
+          <input type="email" name="email" placeholder="Your Email Address" />
+          <input type="password" name="password" placeholder="Create a Secure Password" />
+          <!-- <input type="contact" placeholder="Phone no." /> -->
+          <input type="tel" name="phone" placeholder="Enter your phone number">
+          <button>Sign Up</button>
+        </form>
+      </div>
+      <div class="form-container sign-in-container">
+        <form action="{% url 'b_login' %}" method="post">
+          {% csrf_token %}
+          <h1>Sign in as Business</h1>
+          <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+          <span>or use your account</span>
+          <!-- Display Messages -->
+          {% if messages %}
+          <ul id="message-list">
+            {% for message in messages %}
+            <label class="alert {{ message.tags }}">{{ message }}</label>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          <!-- End Display Messages -->
+          
+          <input type="text" name="username" placeholder="Username" />
+          <input type="password" name="password" placeholder="Password" />
+          <a href="#">Forgot your password?</a>
+          <button>Sign In</button>
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <p>
+              To keep connected with us, please log in to access your personalized shopping experience.
+            </p>
+            <button class="ghost" id="signIn">Sign In</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Hello, Friend!</h1>
+            <p>New to our store? Join us to create your personalized shopping experience. Discover exclusive deals and the trendiest T-shirts!</p>
+            <button class="ghost" id="signUp">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const signUpButton = document.getElementById("signUp");
+      const signInButton = document.getElementById("signIn");
+      const container = document.getElementById("container");
+
+      signUpButton.addEventListener("click", () => {
+        container.classList.add("right-panel-active");
+      });
+
+      signInButton.addEventListener("click", () => {
+        container.classList.remove("right-panel-active");
+      });
+    </script>
+
+    <!-- JavaScript to Hide Messages After 10 Seconds -->
+    <script>
+      setTimeout(() => {
+        const messageList = document.getElementById("message-list");
+        if (messageList) {
+          messageList.style.display = "none";
+        }
+      }, 3000); // 10 seconds (10,000 milliseconds)
+    </script>
+  </body>
+</html>

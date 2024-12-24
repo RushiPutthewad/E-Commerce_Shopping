@@ -1,0 +1,111 @@
+{% extends 'admin/worker_admin_base.html' %}
+{% block main %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">{{role}} Order</h5>
+        <div class="container-fluid">
+            <table class="table table-striped table-bordered table-sm" id="example">
+                <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Order ID</th>
+                    <th>Order Img</th>
+                    <th>Order Quantity</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in table_data %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.order_id}}</td>
+                    <td><img src="{{i.image.url}}" style="width:100px"/></td>
+                    <td>{{i.quantity}}</td>
+                    <td>{{i.created}}</td>
+                    <td>
+                        {% comment %} <a href="#" class="btn btn-info">
+                            <i class="fas fa-info"></i>
+                        </a> {% endcomment %}
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal-{{forloop.counter}}">
+                            <i class="fas fa-info"></i>
+                          </button>
+  
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModal-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Order Detail</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table width="100%">
+                                        <thead>
+                                            <tr class="table-primary">
+                                            <th scope="col">S.No.</th>
+                                            <th scope="col">Order Image</th>
+                                            <th scope="col">Order Id</th>
+                                            <th scope="col">Product Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            <th scope="row">1</th>
+                                            <td><img src="{{i.image.url}}" style="width:300px"/></td>
+                                            <td>{{i.order_id}}</td>
+                                            <td>{{i.product_description}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        
+                        <a href="javascript:void(0);" class="btn btn-danger" onclick="changeStatus({{ i.id }})">
+                          <i class="fas fa-check"></i>
+                        </a>
+
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+  function changeStatus(orderId) {
+      const url = `/change-order-status/${orderId}/`;
+
+      fetch(url, {
+          method: 'GET',
+          headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+          },
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.message) {
+              alert(data.message);
+              location.reload(); // Reload the page to reflect changes
+          } else if (data.error) {
+              alert(data.error);
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred. Please try again.');
+      });
+  }
+</script>
+{% endblock %}

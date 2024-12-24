@@ -1,0 +1,1 @@
+ORDERSTATUS = ((1,'Design'),(2,'Fusing'),(3,'Making'),(4,'Printing'),(5,'Dispatch'),(6,'Delivery'))

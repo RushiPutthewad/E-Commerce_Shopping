@@ -1,0 +1,111 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block main %}
+
+<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css">
+
+<script>
+    new DataTable('#example', {
+        layout: {
+            topStart: {
+                buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+            }
+        }
+    });
+</script>
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom : 2px solid blue">View Making Process Detail</h5>
+        <div class="container-fluid">
+            
+            <table class="table table-bordered">
+                {% for i in making_processes %}
+                <tr align="center">
+                    <td colspan="4" style="font-size : 20px; color:red;">Making Process Details</td>
+                </tr>
+                <tr>
+                    <th>Making Technician Name</th>
+                    <td>{{i.making_technician.name}}</td>
+                    <th>Contact</th>
+                    <td>{{i.making_technician.contact}}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{i.making_technician.email}}</td>
+                    <th>Profile Pic</th>
+                    <td><img src="{{i.making_technician.profile_pic.url}}" width="50px" height="50px"></td>
+                </tr>                
+                <tr align="center">
+                    <td colspan="4" style="font-size : 20px; color:red;">Making Samples</td>
+                </tr>
+                <tr>
+                    <th>Order ID</th>
+                    <td>{{i.order_id}}</td>
+                </tr>
+                {% for sample in i.sample_images.all %}
+                <tr>
+                    <th>Sample ID</th>
+                    <td>{{ sample.id }}</td>
+                    <th>Sample Image</th>
+                    <td><img src="{{ sample.image.url }}" width="100px" height="100px"></td>
+                </tr>
+                {% endfor %}
+
+                <tr>
+                    <th>Making Description</th>
+                    <td colspan="3">{{i.desc}}</td>
+                </tr>
+
+                {% if i.status == "In Progress" %}
+                <form method="post" action="{% url 'update_making_status' i.id %}">
+                    {% csrf_token %}
+                    <tr>
+                        <th>Approval Status</th>
+                        <td colspan="3">
+                            <input type="radio" name="status" value="Completed" required> Mark as Completed
+                            <input type="radio" name="status" value="Cancelled" required> Mark as Cancelled
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="3">
+                            <button type="submit" class="btn btn-primary">Update Status</button>
+                        </td>
+                    </tr>
+                </form>
+                {% else %}
+                <tr>
+                    <th>Approval Status</th>
+                    <td colspan="2">Making process completed</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% comment %} {% if error == "no" %}
+<script>
+    alert('Making status updated successfully');
+    window.location= "{% url 'making_detail' i.id %}";
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert('Something went wrong, Try Again...');
+</script>
+{% endif %} {% endcomment %}
+
+{% endblock %}

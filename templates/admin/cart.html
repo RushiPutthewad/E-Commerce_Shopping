@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Shopping Cart</h1>
+
+    {% if cart %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item, details in cart.items %}
+                    <tr>
+                        <td>{{ item }}</td>
+                        <td>{{ details.quantity }}</td>
+                        <td>${{ details.price }}</td>
+                        <td>${{ details.quantity|multiply:details.price }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <strong>Total Price: </strong> ${{ total_price }}
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</body>
+</html>

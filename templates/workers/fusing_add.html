@@ -1,0 +1,97 @@
+{% extends 'admin/admin_base.html' %}
+{% block main %}
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Add T-shirt Design - Fusing Stage</h5>
+        <div class="container-fluid">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-row">
+                    <!-- Designer Name -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Designer Name</label>
+                            <input type="text" name="designer_name" class="form-control" placeholder="Enter designer's name" required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Worker Role</label>
+                            <input type="text" name="role" readonly required class="form-control" value="Fusing">
+                        </div>
+                    </div>
+
+                    <!-- T-shirt Category -->
+                    {% comment %} <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>T-shirt Category</label>
+                            <select name="category" class="form-control" required>
+                                <option value="">Choose Category</option>
+                                {% for i in cate %}
+                                <option value="{{i.id}}">{{i.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div> {% endcomment %}
+
+                    <!-- Order ID -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Order ID</label>
+                            <input type="text" name="design_name" class="form-control" placeholder="Enter design name" required>
+                        </div>
+                    </div>
+
+                    <!-- Design Description -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Design Description</label>
+                            <textarea name="desc" class="form-control" placeholder="Describe the design" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Upload Sample Images -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Upload Sample Images</label>
+                            <input type="file" name="sample_images" multiple class="form-control-file">
+                        </div>
+                    </div>
+
+                    <!-- Fusing Stage Specific Fields -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Fusing Date</label>
+                            <input type="date" name="fusing_date" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Fusing Status</label>
+                            <select name="fusing_status" class="form-control" required>
+                                <option value="">Choose Fusing Status</option>
+                                <option value="completed">Completed</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Fusing Details/Notes</label>
+                            <textarea name="fusing_details" class="form-control" placeholder="Enter any details or notes about the fusing process" required></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <input type="submit" value="Submit Design and Fusing Details" class="m-2 px-3 btn btn-primary">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% comment %} <!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Worker's Login</title>
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'assets/css/Worker_login.css' %}">
+   </head>
+   <body>
+      <div class="wrapper">
+         <div class="title">
+            Worker Login Form
+         </div>
+         <form action="{% url 'workerBase' %}" method="post">
+            {% csrf_token %}
+            <div class="field">
+               <input type="text" name="username" required>
+               <label>Email Address</label>
+            </div>
+            <div class="field">
+               <input type="password"  name="pass" required>
+               <label>Password</label>
+            </div>
+            <div class="field">
+               <input type="submit" value="Login">
+            </div>
+         </form>
+      </div>
+   </body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Worker's Login</title>
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'assets/css/Worker_login.css' %}">
+   </head>
+   <body>
+      <div class="wrapper">
+         <div class="title">
+            Worker Login Form
+         </div>
+         <form action="{% url 'worklogin' %}" method="post">
+            {% csrf_token %}
+            <div class="field">
+               <input type="text" name="username" required>
+               <label>Email Address</label>
+            </div>
+            <div class="field">
+               <input type="password" name="password" required>
+               <label>Password</label>
+            </div>
+            <div class="field">
+               <select name="role" required>
+                  <option value="" disabled selected>Select Role</option>
+                  {% for status in ORDERSTATUS %}
+                  <option value="{{ status.0 }}">{{ status.1 }}</option>
+                  {% endfor %}
+               </select>
+            </div>
+            <div class="field">
+               <input type="submit" value="Login">
+            </div>
+         </form>
+      </div>
+   </body>
+</html>
